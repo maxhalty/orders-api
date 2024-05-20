@@ -4,7 +4,11 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CORS_ALLOW_ORIGINS": "https://localhost:8080,https://localhost:56277,http://localhost:56278",
+        "CORS_EXPOSE_HEADERS": "location",
+        "REGION": "us-east-1",
+        "DYNAMODB_ORDERS_TABLE_NAME": "orders-table"
       },
       "applicationUrl": "https://localhost:56277;http://localhost:56278"
     },
