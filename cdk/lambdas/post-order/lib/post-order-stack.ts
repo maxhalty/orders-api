@@ -41,7 +41,7 @@ export class PostOrderStack extends Stack {
       functionName: lambdaFunctionName,
       runtime: lambda.Runtime.DOTNET_8,
       handler: 'OrderAPI.Post',
-      code: lambda.Code.fromAsset('../../../publish_dotnet/post-order.zip'),
+      code: lambda.Code.fromAsset('../../../publish-dotnet/post-order.zip'),
       timeout: Duration.minutes(1),
       role: _role,
       memorySize: 1024,
