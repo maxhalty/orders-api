@@ -8,16 +8,10 @@ using OrderAPI.Infraestructure.Repositories;
 
 namespace OrderAPI.Application.Handlers;
 
-public sealed class CreateOrderHandler : IRequestHandler<CreateOrderCommand, IResult>
+public sealed class CreateOrderHandler(IHttpContextAccessor httpContextAccessor, IDynamoDBContext? dynamoDBContext = null) : IRequestHandler<CreateOrderCommand, IResult>
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IDynamoDBContext? _dynamoDBContext;
-
-    public CreateOrderHandler(IHttpContextAccessor httpContextAccessor, IDynamoDBContext? dynamoDBContext = null)
-    {
-        _httpContextAccessor = httpContextAccessor;
-        _dynamoDBContext = dynamoDBContext;
-    }
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+    private readonly IDynamoDBContext? _dynamoDBContext = dynamoDBContext;
 
     public async Task<IResult> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {

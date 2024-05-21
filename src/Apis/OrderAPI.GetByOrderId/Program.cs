@@ -1,19 +1,36 @@
-var builder = WebApplication.CreateBuilder(args);
+using OrderAPI.Application.Queries;
+using OrderAPI.Common.Framework.Handlers;
+using OrderAPI.Common.Framework.Helpers;
+using OrderAPI.Common.Framework.Mappers;
+using OrderAPI.GetByOrderId.Queries;
+using OrderAPI.Infraestructure.Framework.Helpers;
 
-// Add services to the container.
-builder.Services.AddControllers();
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add AWS Lambda support. When application is run in Lambda Kestrel is swapped out as the web server with Amazon.Lambda.AspNetCoreServer. This
-// package will act as the webserver translating request and responses between the Lambda event source and ASP.NET Core.
-builder.Services.AddAWSLambdaHosting(LambdaEventSource.RestApi);
+builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
+builder.Services.AddHttpContextAccessor();
 
-var app = builder.Build();
+builder.Services.AddCommonServices(builder.Configuration, builder.Environment);
 
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(GetOrderByIdQuery).Assembly));
+
+WebApplication app = builder.Build();
+
+app.UseApiExceptionHandler(ExceptionsMapper.GetApiDictionary());
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
+app.UseCors("OrderApiCorsPolicy");
 
-app.MapGet("/", () => "Welcome to running ASP.NET Core Minimal API on AWS Lambda");
+//app.UseAuthorization();
+
+if (!app.Environment.IsProduction())
+{
+    _ = app.AddSwaggerConfiguration(builder.Configuration);
+}
+
+app.AddOrdersQueries();
+
+app.MapGet("/public/healthcheck", () => $"I'm Healthy :), hello from {EnvironmentHelper.GetEnvironmentVariable("REGION")}")
+    .ExcludeFromDescription();
 
 app.Run();

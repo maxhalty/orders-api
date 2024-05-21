@@ -1,10 +1,5 @@
 ﻿using OrderAPI.Domain;
 using OrderAPI.Infraestructure.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderAPI.Infraestructure.Framework.Mapper;
 
@@ -22,5 +17,17 @@ public static class OrderDtoMapper
         };
 
         return orderDto;
+    }
+
+    public static Order ToOrder(this OrderDto orderDto)
+    {
+        Order order = new(
+            orderDto.Id,
+            orderDto.Name,
+            orderDto.Description,
+            orderDto.Price,
+            orderDto.CreatedAt);
+
+        return order;
     }
 }

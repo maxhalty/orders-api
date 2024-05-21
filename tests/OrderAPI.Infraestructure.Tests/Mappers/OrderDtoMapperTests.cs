@@ -29,4 +29,23 @@ public class OrderDtoMapperTests
         Assert.Equal(order.Price, orderDto.Price);
         _mockRepository.VerifyAll();
     }
+
+    [Fact]
+    public void ToOrder_CorrectData_MapperOk()
+    {
+        OrderDto orderDto = new()
+        {
+            Id = It.IsAny<Guid>(),
+            Name = It.IsAny<string>(),
+            Description = It.IsAny<string>(),
+            Price = It.IsAny<decimal>(),
+            CreatedAt = It.IsAny<DateTime>()
+        };
+        Order order = OrderDtoMapper.ToOrder(orderDto);
+
+        Assert.Equal(orderDto.Name, order.Name);
+        Assert.Equal(orderDto.Description, order.Description);
+        Assert.Equal(orderDto.Price, order.Price);
+        _mockRepository.VerifyAll();
+    }
 }

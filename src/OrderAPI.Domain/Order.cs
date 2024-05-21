@@ -8,6 +8,15 @@ public class Order
     public decimal Price { get; set; }
     public DateTime CreatedAt { get; set; }
 
+    public Order(Guid id, string name, string description, decimal price, DateTime createdAt)
+    {
+        Id = id;
+        Name = name;
+        Description = description;
+        Price = price;
+        CreatedAt = createdAt;
+    }
+
     public Order(string name, string description, decimal price)
     {
         Id = Guid.NewGuid();
