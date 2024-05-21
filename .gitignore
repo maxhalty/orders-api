@@ -25,6 +25,7 @@ x86/
 build/
 bld/
 src/[Bb]in/
+tests/[Bb]in/
 [Oo]bj/
 msbuild.log
 msbuild.err
