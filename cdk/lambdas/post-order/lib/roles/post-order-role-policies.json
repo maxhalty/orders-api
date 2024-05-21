@@ -8,7 +8,7 @@
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resources": "*"
+            "Resource": "*"
         },
         {
             "Effect": "Allow",
@@ -18,7 +18,7 @@
                 "dynamodb:PutItem",
                 "dynamodb:UpdateItem"
             ],
-            "Resources": "*"
+            "Resource": "*"
         }
     ]
 }
