@@ -32,8 +32,8 @@ jobs:
           dotnet-lambda package -pl ./src/Apis/OrderAPI -c Release -o ./publish-dotnet/post-order.zip -farch arm64
         shell: bash
 
-      - name: Update artifacts
-        uses: actions/upload-artifacts@v3
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
         with:
           name: publish-dotnet
           path: publish-dotnet
@@ -68,7 +68,7 @@ jobs:
           node-version: 20
 
       - name: Download artifacts
-        uses: actions/download-artifacts@v3
+        uses: actions/download-artifact@v3
 
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
