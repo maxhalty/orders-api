@@ -8,10 +8,6 @@ if (process.env.AWS_DEPLOY_REGION === undefined) {
   throw new Error("AWS_DEPLOY_REGION environment variable missing");
 }
 
-if (process.env.AWS_DR_REGION === undefined) {
-  throw new Error("AWS_DR_REGION environment variable missing");
-}
-
 const app = new cdk.App();
 
 const _postOrderStack = new PostOrderStack(app, 'post-order-stack');
