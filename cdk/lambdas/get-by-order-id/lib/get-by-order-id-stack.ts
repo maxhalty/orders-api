@@ -41,7 +41,7 @@ export class GetByOrderIdStack extends Stack {
       functionName: lambdaFunctionName,
       runtime: lambda.Runtime.DOTNET_8,
       handler: 'OrderAPI.GetByOrderId',
-      code: lambda.Code.fromAsset('../../../publish-dotnet/get-order-by-id.zip'),
+      code: lambda.Code.fromAsset('../../../publish-dotnet/get-by-order-id.zip'),
       timeout: Duration.minutes(1),
       role: _role,
       memorySize: 1024,
