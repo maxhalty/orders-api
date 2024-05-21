@@ -1,0 +1,89 @@
+name: Deploying Post Order
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - src/Apis/OrderAPI.Post/OrderAPI.Post.csproj
+      - cdk/lambdas/post-order/**
+      - .github/workflows/deploy-post-order.yml
+
+concurrency:
+  group: "${{ github.ref_name }}-deploy-post-order"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build post order
+    steps:
+      - name: Setup actions
+        uses: actions/checkout@v3
+
+      - name: Configure dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+      
+      - name: Build post order
+        run: |
+          dotnet tool install -g Amazon.Lambda.Tools
+          dotnet-lambda package -pl ./src/Apis/OrderAPI -c Release -o ./publish-dotnet/post-order.zip -farch arm64
+        shell: bash
+
+      - name: Update artifacts
+        uses: actions/upload-artifacts@v3
+        with:
+          name: publish-dotnet
+          path: publish-dotnet
+
+  deploy:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - destination-region: ${{ vars.AWS_REGION_US_EAST_1 }}
+          - destination-region: ${{ vars.AWS_REGION_US_WEST_2 }}
+    name: Deploy to ${{ matrix.destination-region }}
+    permissions:
+      id-token: write
+      contents: read
+    environment: dev
+    env:
+      ENV_NAME: dev
+      AWS_DEPLOY_REGION: ${{ matrix.destination-region }}
+      AWS_DEPLOY_ACCOUNT: ${{ vars.AWS_ACCOUNT }}
+      CORS_ALLOW_ORIGINS: ${{ vars.CORS_ALLOW_ORIGINS }}
+      CORS_EXPOSE_HEADERS: ${{ vars.CORS_EXPOSE_HEADERS }}
+    steps:
+      - name: Setup actions
+        uses: actions/checkout@v3
+      
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Download artifacts
+        uses: actions/download-artifacts@v3
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_DEPLOY_ACCOUNT }}:role/github-cicd
+          aws-region: ${{ env.AWS_DEPLOY_REGION }}
+
+      - name: Deploy Stack
+        run: |
+          sudo npm install -g aws-cdk
+          cd cdk/lambdas/post-order && npm install
+          cdk deploy post-order-stack --require-approval never
+        shell: bash
+
+      - name: Add summary
+        run: |
+          echo "## Deployed in ${{env.AWS_DEPLOY_REGION}} ${{env.ENV_NAME}} environment :smile: :rocket:" >> $GITHUB_STEP_SUMMARY
+        shell: bash
