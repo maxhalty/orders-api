@@ -3,7 +3,7 @@ name: Deploy DynamoDb
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - cdk/infraestructure/dynamodb/**
       - .github/workflows/deploy-dynamodb.yml
