@@ -1,0 +1,47 @@
+name: Deploy DynamoDb
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - cdk/infraestructure/dynamodb/**
+      - .github/workflows/deploy-dynamodb.yml
+
+concurrency:
+  group: "${{ github.ref_name }}-deploy-dynamodb"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    environment: "dev"
+    env:
+      AWS_DEPLOY_ACCOUNT: ${{ vars.AWS_ACCOUNT }}
+      AWS_DEPLOY_REGION: ${{ vars.AWS_DEPLOY_REGION }}
+      AWS_DR_REGION: ${{ vars.AWS_DR_REGION }}
+    steps:
+      - name: Setup actions
+        uses: actions/checkout@v3
+      
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::${{ env.AWS_DEPLOY_ACCOUNT }}:role/github-cicd
+          aws-region: ${{ env.AWS_DEPLOY_REGION }}
+
+      - name: Deploy Stack
+        run: |
+          sudo npm install -g aws-cdk
+          cd cdk/infraestructure/dynamodb && npm install
+          cdk deploy orders-dynamodb-stack --require-approval never
+        shell: bash

@@ -1,0 +1,16 @@
+{
+    "TagsList": [
+        {
+            "Key": "owner",
+            "Value": "maxhalty"
+        },
+        {
+            "Key": "project",
+            "Value": "orders-api"
+        },
+        {
+            "Key": "data-privacy",
+            "Value": "not-personal-data"
+        }
+    ]
+}
