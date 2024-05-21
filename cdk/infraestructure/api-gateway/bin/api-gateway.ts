@@ -9,6 +9,6 @@ if (process.env.AWS_DEPLOY_REGION === undefined) {
 }
 
 const app = new cdk.App();
-const _apiGatewayStack = new ApiGatewayStack(app, 'api-gatewat-stack');
+const _apiGatewayStack = new ApiGatewayStack(app, 'api-gateway-stack');
 
 TagsHelpers.addTags(_apiGatewayStack);
