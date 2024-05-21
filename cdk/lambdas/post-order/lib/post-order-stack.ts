@@ -47,7 +47,7 @@ export class PostOrderStack extends Stack {
       memorySize: 1024,
       architecture: lambda.Architecture.ARM_64,
       tracing: lambda.Tracing.ACTIVE,
-      insightsVersion: lambda.LambdaInsightsVersion.VERSION_1_0_98_0,
+      insightsVersion: lambda.LambdaInsightsVersion.VERSION_1_0_229_0,
       environment:
       {
         ASPNETCORE_ENVIRONMENT: process.env.ENV_NAME,
