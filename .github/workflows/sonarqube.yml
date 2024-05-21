@@ -43,7 +43,6 @@ jobs:
       - name: Install SonarCloud coverage
         shell: powershell
         run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool install dotnet-coverage --tool-path .\.sonar\scanner
       - name: Build and analyze
         env:
