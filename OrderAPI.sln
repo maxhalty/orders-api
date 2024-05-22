@@ -14,10 +14,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAPI.GetByOrderId", "src\Apis\OrderAPI.GetByOrderId\OrderAPI.GetByOrderId.csproj", "{811CB76D-0F26-4F92-B80E-2FDE330A1C27}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8F3A0A33-82CB-4066-916B-29885EAAC36F}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build.yml = .github\workflows\build.yml
-		.github\workflows\main.yml = .github\workflows\main.yml
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAPI.Infraestructure", "src\OrderAPI.Infraestructure\OrderAPI.Infraestructure.csproj", "{5FE54EE2-219A-4AED-B016-62C8FF002C64}"
 EndProject
@@ -27,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAPI.Domain", "src\Orde
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAPI.Common", "src\Apis\OrderAPI.Common\OrderAPI.Common.csproj", "{42B65DF7-355C-4B6D-AECE-F29043673694}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderAPI.Application.Tests", "tests\OrderAPI.Application.Tests\OrderAPI.Application.Tests.csproj", "{7F1F2882-988C-47C6-B83A-86B898AD41EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAPI.Application.Tests", "tests\OrderAPI.Application.Tests\OrderAPI.Application.Tests.csproj", "{7F1F2882-988C-47C6-B83A-86B898AD41EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderAPI.Infraestructure.Tests", "tests\OrderAPI.Infraestructure.Tests\OrderAPI.Infraestructure.Tests.csproj", "{1FE8C36C-CDC0-4988-8ED8-49E3406230D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAPI.Infraestructure.Tests", "tests\OrderAPI.Infraestructure.Tests\OrderAPI.Infraestructure.Tests.csproj", "{1FE8C36C-CDC0-4988-8ED8-49E3406230D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderAPI.Domain.Tests", "tests\OrderAPI.Domain.Tests\OrderAPI.Domain.Tests.csproj", "{DB1F8780-54F1-4CB3-90A4-8C44AF6F9A7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderAPI.Domain.Tests", "tests\OrderAPI.Domain.Tests\OrderAPI.Domain.Tests.csproj", "{DB1F8780-54F1-4CB3-90A4-8C44AF6F9A7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
